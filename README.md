@@ -4,8 +4,6 @@
 
 Nexus is a robust networking module for Roblox that provides type-strict, permission-based communication between server and clients. It offers features like message batching, rate limiting, and channel-based communication with fine-grained access control.
 
-> **Note:** Nexus automatically initializes itself when required, so you can start using its functions immediately without calling a setup function.
-
 ## Key Features
 
 - **Type-strict callbacks**: Ensures reliable communication with proper data types
@@ -23,6 +21,8 @@ Nexus is a robust networking module for Roblox that provides type-strict, permis
 #### `Nexus.Setup(): boolean`
 
 Although Nexus self-initializes when required, this function can be called explicitly if needed. Server creates the necessary RemoteEvents and RemoteFunctions, while clients connect to them.
+
+> **Note:** Nexus automatically initializes itself when required. It returns a boolean of if it has been initialized succesfully yet.
 
 ```lua
 local success = Nexus.Setup()
