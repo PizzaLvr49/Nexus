@@ -4,6 +4,8 @@
 
 Nexus is a robust networking module for Roblox that provides type-strict, permission-based communication between server and clients. It offers features like message batching, rate limiting, and channel-based communication with fine-grained access control.
 
+> **Note:** Nexus automatically initializes itself when required, so you can start using its functions immediately without calling a setup function.
+
 ## Key Features
 
 - **Type-strict callbacks**: Ensures reliable communication with proper data types
@@ -12,6 +14,7 @@ Nexus is a robust networking module for Roblox that provides type-strict, permis
 - **Access control**: Granular permissions for channel access
 - **Size limiting**: Prevents oversized messages from causing issues
 - **Bidirectional communication**: Server-to-client and client-to-server messaging
+- **Auto-initialization**: The module sets itself up when required
 
 ## API Reference
 
@@ -19,13 +22,14 @@ Nexus is a robust networking module for Roblox that provides type-strict, permis
 
 #### `Nexus.Setup(): boolean`
 
-Initializes the Nexus module. Server creates the necessary RemoteEvents and RemoteFunctions, while clients connect to them.
+Although Nexus self-initializes when required, this function can be called explicitly if needed. Server creates the necessary RemoteEvents and RemoteFunctions, while clients connect to them.
 
 ```lua
 local success = Nexus.Setup()
 ```
 
 - Returns: `boolean` - Whether initialization was successful
+- **Note:** This is called automatically when you require the module, so you typically don't need to call it manually.
 
 #### `Nexus.Register(channelName: string, options): table?`
 
@@ -191,6 +195,7 @@ type AccessCheck = (player: Player) -> boolean
 
 ```lua
 local Nexus = require(ReplicatedStorage.Nexus)
+-- Note: No need to call Nexus.Setup() as it's done automatically on require
 
 -- Create a chat channel with access control
 Nexus.Register("GlobalChat", {
@@ -214,6 +219,7 @@ Nexus.Send("GlobalChat", 10, "Server is restarting in 5 minutes")
 
 ```lua
 local Nexus = require(ReplicatedStorage.Nexus)
+-- Nexus is already initialized and will wait for server remotes
 
 -- Connect to existing channel
 Nexus.Connect("GlobalChat", function(senderId, message)
