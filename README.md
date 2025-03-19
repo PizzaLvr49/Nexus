@@ -101,6 +101,8 @@ Nexus.Send("PlayerData", { userId = 123, score = 500 })
 
 Adds a filter function to a channel for validating messages.
 
+> **Note:** Data is sent as a payload for filters
+
 ```lua
 Nexus.AddFilter("Chat", function(player, data)
     -- Block messages with bad words
